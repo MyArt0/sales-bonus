@@ -41,12 +41,24 @@ function calculateBonusByProfit(index, total, seller) {
  * @returns {{revenue, top_products, bonus, name, sales_count, profit, seller_id}[]}
  */
 function analyzeSalesData(data, options) {
-    // ✅ Правильная проверка всех условий
+    // ✅ Проверка наличия data и options
     if (!data || !options) {
         throw new Error('Некорректные входные данные');
     }
     
-    // Проверка наличия обязательных полей
+    // ✅ Проверка, что обе функции переданы в options
+    if (typeof options.calculateRevenue !== "function" || 
+        typeof options.calculateBonus !== "function") {
+        throw new Error('Некорректные входные данные');
+    }
+    
+    // Деструктуризация с переименованием
+    const { 
+        calculateRevenue: calculateSimpleRevenue, 
+        calculateBonus: calculateBonusByProfit 
+    } = options;
+    
+    // Проверка наличия обязательных полей в data
     if (!data.sellers || !Array.isArray(data.sellers)) {
         throw new Error('Некорректные входные данные');
     }
@@ -59,7 +71,6 @@ function analyzeSalesData(data, options) {
         throw new Error('Некорректные входные данные');
     }
     
-    // ✅ Отдельная проверка на пустой массив
     if (data.purchase_records.length === 0) {
         throw new Error('Некорректные входные данные');
     }
