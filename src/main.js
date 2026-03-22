@@ -41,23 +41,27 @@ function calculateBonusByProfit(index, total, seller) {
  * @returns {{revenue, top_products, bonus, name, sales_count, profit, seller_id}[]}
  */
 function analyzeSalesData(data, options) {
-    // ✅ Проверка наличия входных данных
-    if (!data || !options || !data.purchase_records || !data.purchase_records.length === 0) {
+    // ✅ Правильная проверка всех условий
+    if (!data || !options) {
         throw new Error('Некорректные входные данные');
     }
     
-    // Используем глобальные функции, не берем из options
-    const { 
-    calculateRevenue: calculateSimpleRevenue, 
-    calculateBonus: calculateBonusByProfit 
-    } = options;
-    // Проверяем, что функции существуют
-    if (typeof calculateSimpleRevenue !== "function") {
-        throw new Error('calculateSimpleRevenue не функция');
+    // Проверка наличия обязательных полей
+    if (!data.sellers || !Array.isArray(data.sellers)) {
+        throw new Error('Некорректные входные данные');
     }
     
-    if (typeof calculateBonusByProfit !== "function") {
-        throw new Error('calculateBonusByProfit не функция');
+    if (!data.products || !Array.isArray(data.products)) {
+        throw new Error('Некорректные входные данные');
+    }
+    
+    if (!data.purchase_records || !Array.isArray(data.purchase_records)) {
+        throw new Error('Некорректные входные данные');
+    }
+    
+    // ✅ Отдельная проверка на пустой массив
+    if (data.purchase_records.length === 0) {
+        throw new Error('Некорректные входные данные');
     }
     // @TODO: Проверка наличия опций
 
