@@ -42,7 +42,7 @@ function calculateBonusByProfit(index, total, seller) {
  */
 function analyzeSalesData(data, options) {
     // ✅ Проверка наличия входных данных
-    if (!data || !options || !data.purchase_records || !data.purchase_recordss.length === 0) {
+    if (!data || !options || !data.purchase_records || !data.purchase_records.length === 0) {
         throw new Error('Некорректные входные данные');
     }
     
