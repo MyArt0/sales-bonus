@@ -47,6 +47,10 @@ function analyzeSalesData(data, options) {
     }
     
     // Используем глобальные функции, не берем из options
+    const { 
+    calculateRevenue: calculateSimpleRevenue, 
+    calculateBonus: calculateBonusByProfit 
+    } = options;
     // Проверяем, что функции существуют
     if (typeof calculateSimpleRevenue !== "function") {
         throw new Error('calculateSimpleRevenue не функция');
@@ -56,6 +60,9 @@ function analyzeSalesData(data, options) {
         throw new Error('calculateBonusByProfit не функция');
     }
 
+    if (!data.purchase_records) {
+        data.purchase_records = [];
+    }
     // @TODO: Проверка наличия опций
 
 
