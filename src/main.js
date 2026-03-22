@@ -41,12 +41,12 @@ function calculateBonusByProfit(index, total, seller) {
  * @returns {{revenue, top_products, bonus, name, sales_count, profit, seller_id}[]}
  */
 function analyzeSalesData(data, options) {
-    // ✅ Проверка наличия data и options
+    //  Проверка наличия data и options
     if (!data || !options) {
         throw new Error('Некорректные входные данные');
     }
     
-    // ✅ Проверка, что обе функции переданы в options
+    //  Проверка, что обе функции переданы в options
     if (typeof options.calculateRevenue !== "function" || 
         typeof options.calculateBonus !== "function") {
         throw new Error('Некорректные входные данные');
